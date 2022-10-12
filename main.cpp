@@ -46,6 +46,23 @@ void searchBST(BST &binarySearchTree)
     fileStream.close();
 }
 
+void deleteBST(BST &binarySearchTree)
+{
+    string textLine;
+    ifstream fileStream("./data/delete_data.txt");
+
+    auto start = high_resolution_clock::now();
+    while (getline(fileStream, textLine))
+    {
+        binarySearchTree.del(stoi(textLine));
+    }
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+    cout << "\n[BST DELETE TIME] :" << duration.count() << " microseconds";
+
+    fileStream.close();
+}
+
 void insertIntoSplay(SplayTree &splayTree, string filePath)
 {
     string textLine;
@@ -78,6 +95,22 @@ void searchSplay(SplayTree &splayTree)
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
     cout << "\n[Splay SEARCH TIME] :" << duration.count() << " microseconds";
+    fileStream.close();
+}
+
+void deleteSplay(SplayTree &splayTree)
+{
+    string textLine;
+    ifstream fileStream("./data/search_data.txt");
+
+    auto start = high_resolution_clock::now();
+    while (getline(fileStream, textLine))
+    {
+        splayTree.del(stoi(textLine));
+    }
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+    cout << "\n[Splay DELETE TIME] :" << duration.count() << " microseconds";
     fileStream.close();
 }
 
@@ -116,14 +149,33 @@ void searchRBT(RBTree &redBlackTree)
     fileStream.close();
 }
 
+void deleteRBT(RBTree &redBlackTree)
+{
+    string textLine;
+    ifstream fileStream("./data/search_data.txt");
+
+    auto start = high_resolution_clock::now();
+    while (getline(fileStream, textLine))
+    {
+        redBlackTree.del(stoi(textLine));
+    }
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+    cout << "\n[RBT DELETE TIME] :" << duration.count() << " microseconds";
+    fileStream.close();
+}
+
 int main()
 {
     BST bstData1;
     BST bstData2;
     insertIntoBST(bstData1, "./data/data_1.txt");
     searchBST(bstData1);
+    deleteBST(bstData1);
+
     insertIntoBST(bstData2, "./data/data_2.txt");
     searchBST(bstData2);
+    deleteBST(bstData2);
 
     cout << "\n";
 
@@ -131,8 +183,11 @@ int main()
     SplayTree stData2;
     insertIntoSplay(stData1, "./data/data_1.txt");
     searchSplay(stData1);
+    deleteSplay(stData1);
+
     insertIntoSplay(stData2, "./data/data_2.txt");
     searchSplay(stData2);
+    deleteSplay(stData2);
 
     cout << "\n";
 
@@ -140,6 +195,9 @@ int main()
     RBTree rbtData2;
     insertIntoRBT(rbtData1, "./data/data_1.txt");
     searchRBT(rbtData1);
+    deleteRBT(rbtData1);
+
     insertIntoRBT(rbtData2, "./data/data_2.txt");
     searchRBT(rbtData2);
+    deleteRBT(rbtData2);
 }
